@@ -7,12 +7,3 @@ void setup() {
 void draw() {
   background(255);
 }
-
-void update(Dude dude){
-  
-}
-
-void show(){
-  fill(col);
-  ellipse (x, y, size, size);
-}

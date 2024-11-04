@@ -16,3 +16,12 @@ class Dude {
     dy = random(-2, 2);
   }
 } 
+
+void update(Dude dude){
+  
+}
+
+void show(){
+  fill(col);
+  ellipse (x, y, size, size);
+}
