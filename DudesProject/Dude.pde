@@ -20,20 +20,27 @@ class Dude {
     float directionX = other.x - x;
     float directionY = other.y - y;
     float distance = dist(x, y, other.x, other.y);
-    
-// create attraction and repulsion effect on the two dudes
-// using unit vector as direction
-    if (attracted){
-      dx += 0.02 * directionX / distance; 
+
+    // create attraction and repulsion effect on the two dudes
+    // using unit vector as direction
+    if (attracted) {
+      dx += 0.02 * directionX / distance;
       dy += 0.02 * directionY / distance;
-    } else{
+    } else {
       dx -= 0.02 * directionX / distance;
       dy -= 0.02 * directionY / distance;
     }
 
-// update position by incrementing
+    // update position by incrementing
     x += dx;
     y += dy;
+    // bounce off wall
+    if (x < 0 || x > width) {
+      dx *= -1;
+    }
+    if (y < 0 || y > height) {
+      dy *= -1;
+    }
   }
 
   void show() {
