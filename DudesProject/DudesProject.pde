@@ -4,7 +4,7 @@ Dude dude2;
 void setup() {
   size(600, 600);
   dude1 = new Dude(400, 200, true);    
-  dude2 = new Dude(0, 500, false);   
+  dude2 = new Dude(200, 500, false);   
 }
 
 void draw() {

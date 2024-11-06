@@ -9,11 +9,11 @@ class Dude {
   Dude(float startX, float startY, boolean attracted) {
     x = startX;
     y = startY;
-    size = random(10, 30);
+    size = 200;
     col = color(random(255), random(255), random(255));
     this.attracted = attracted;
-    dx = random(-2, 2);
-    dy = random(-2, 2);
+    dx = random(-1, 1);
+    dy = random(-1, 1);
   }
 
   void update(Dude other) {
@@ -30,10 +30,17 @@ class Dude {
       dx -= 0.02 * directionX / distance;
       dy -= 0.02 * directionY / distance;
     }
+    
+    // bounce off each others
+    if(distance < ((size + other.size)/2)){
+      dx *= -1;
+      dy *= -1;
+    }
 
     // update position by incrementing
     x += dx;
     y += dy;
+    
     // bounce off wall
     if (x < 0 || x > width) {
       dx *= -1;
