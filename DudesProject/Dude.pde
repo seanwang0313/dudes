@@ -1,57 +1,59 @@
 class Dude {
-  float x, y;         // position
+  float posX, posY;
   float dx, dy;       // speed
-  float size;         // size
-  color col;          // color
+  float size;
+  float attractionConstant;
+  color col;
   boolean attracted;  // attracted/repell
 
   // initialize  Dude's position, attraction, and speed
-  Dude(float startX, float startY, boolean attracted) {
-    x = startX;
-    y = startY;
-    size = 200;
+  Dude(float startX, float startY, float attractionConstant, boolean attracted) {
+    posX = startX;
+    posY = startY;
+    size = random (10, 30);
     col = color(random(255), random(255), random(255));
     this.attracted = attracted;
+    this.attractionConstant = attractionConstant;
     dx = random(-1, 1);
     dy = random(-1, 1);
   }
 
   void update(Dude other) {
-    float directionX = other.x - x;
-    float directionY = other.y - y;
-    float distance = dist(x, y, other.x, other.y);
+    float directionX = other.posX - posX;
+    float directionY = other.posY - posY;
+    float distance = dist(posX, posY, other.posX, other.posY);
 
     // create attraction and repulsion effect on the two dudes
     // using unit vector as direction
     if (attracted) {
-      dx += 0.02 * directionX / distance;
-      dy += 0.02 * directionY / distance;
+      dx += attractionConstant * directionX / distance;
+      dy += attractionConstant * directionY / distance;
     } else {
-      dx -= 0.02 * directionX / distance;
-      dy -= 0.02 * directionY / distance;
+      dx -= attractionConstant * directionX / distance;
+      dy -= attractionConstant * directionY / distance;
     }
-    
+
     // bounce off each others
-    if(distance < ((size + other.size)/2)){
+    if (distance < ((size + other.size)/2)) {
       dx *= -1;
       dy *= -1;
     }
 
     // update position by incrementing
-    x += dx;
-    y += dy;
-    
+    posX += dx;
+    posY += dy;
+
     // bounce off wall
-    if (x < 0 || x > width) {
+    if (posX < 0 || posX > width) {
       dx *= -1;
     }
-    if (y < 0 || y > height) {
+    if (posY < 0 || posY > height) {
       dy *= -1;
     }
   }
 
   void show() {
     fill(col);
-    ellipse (x, y, size, size);
+    ellipse (posX, posY, size, size);
   }
 }
