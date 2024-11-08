@@ -1,7 +1,7 @@
-Description
+Description：
 The Dude Simulation is an interactive program that showcases objects (referred to as "Dudes") that move around the screen, interact with each other. Each Dude is initialized with unique attributes, including random color, size, and initial speed. Dudes can either be attracted or repelled by other Dudes, creating a love/hate relationship.
 
-Features
+Features：
 Attraction and Repulsion: Each Dude is either attracted to or repelled by other Dudes based on a configurable attraction constant.
 Collision Detection: Dudes detect and respond to collisions with each other, bouncing off upon contact.
 Wall Interaction: Dudes bounce off the screen edges to avoid getting stuck on any side.
