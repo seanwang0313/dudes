@@ -3,8 +3,8 @@ Dude dude2;
 
 void setup() {
   size(600, 600);
-  dude1 = new Dude(400, 200, 0.25, true);    
-  dude2 = new Dude(200, 500, 0.1, false);   
+  dude1 = new Dude(random(0, 600), random(0, 600), 0.25, true);    
+  dude2 = new Dude(random(0, 600), random(0, 600), 0.1, false);   
 }
 
 void draw() {
