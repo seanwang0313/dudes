@@ -2,8 +2,9 @@ class Dude {
   float posX, posY;
   float dx, dy;       // speed
   float size;
+  float distance;
   float attractionConstant;
-  color col;
+  color col;          // dude color
   boolean attracted;  // attracted/repell
 
   // initialize  Dude's position, attraction, and speed
@@ -14,16 +15,22 @@ class Dude {
     col = color(random(255), random(255), random(255));
     this.attracted = attracted;
     this.attractionConstant = attractionConstant;
-    dx = random(-1, 1);
-    dy = random(-1, 1);
+    dx = random(-0.5, 0.5);
+    dy = random(-0.5, 0.5);
   }
 
   void update(Dude other) {
+    applyAttractionOrRepulsion(other);
+    collisionWithDude(other);
+    updatePosition();
+    wallCollision();
+  }
+
+  void applyAttractionOrRepulsion(Dude other) {
     float directionX = other.posX - posX;
     float directionY = other.posY - posY;
-    float distance = dist(posX, posY, other.posX, other.posY);
+    distance = dist(posX, posY, other.posX, other.posY);
 
-    // create attraction and repulsion effect on the two dudes
     // using unit vector as direction
     if (attracted) {
       dx += attractionConstant * directionX / distance;
@@ -32,22 +39,37 @@ class Dude {
       dx -= attractionConstant * directionX / distance;
       dy -= attractionConstant * directionY / distance;
     }
+  }
 
+  void collisionWithDude(Dude other) {
     // bounce off each others
     if (distance < ((size + other.size)/2)) {
       dx *= -1;
       dy *= -1;
     }
+  }
 
-    // update position by incrementing
+  void updatePosition() {
     posX += dx;
     posY += dy;
+  }
 
-    // bounce off wall
-    if (posX < 0 || posX > width) {
+  // wall collision and avoid getting stuck on side
+  void wallCollision() {
+    if (posX < 0) {
+      posX = 1;   // Move slightly away from the left edge
       dx *= -1;
     }
-    if (posY < 0 || posY > height) {
+    if (posX > width) {
+      posX = width - 1;  // Move slightly away from the right edge
+      dx *= -1;
+    }
+    if (posY < 0) {
+      posY = 1;   // Move slightly away from the top edge
+      dy *= -1;
+    }
+    if (posY > height) {
+      posY = height - 1;  // Move slightly away from the bottom edge
       dy *= -1;
     }
   }
